@@ -1,0 +1,41 @@
+{
+  "name": "faceact",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^2.0.1",
+    "body-parser": "^1.15.2",
+    "change-case": "^3.0.0",
+    "child_process": "^1.0.2",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "express-fileupload": "0.0.5",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^7.1.9",
+    "moment": "^2.17.0",
+    "morgan": "^1.7.0",
+    "mysql": "^2.11.1",
+    "nconf": "^0.8.4",
+    "nodemailer": "^2.5.0",
+    "request": "^2.79.0",
+    "require-dir": "^0.3.0",
+    "sequelize": "^3.27.0",
+    "sequelize-cli": "^2.5.1",
+    "sha1": "^1.1.1",
+    "slack-node": "^0.1.8",
+    "sys": "0.0.1",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
+  },
+  "scripts": {
+    "migration": "sequelize db:migrate",
+    "seed": "sequelize db:seed"
+  },
+  "author": "Mopidev",
+  "license": "ISC"
+}
