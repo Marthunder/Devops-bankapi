@@ -5,7 +5,7 @@ var errorService = require('../../lib/errorService.js');
 var fileUpload = require('express-fileupload');
 // Local dependecies
 var fs = require("fs");
-var config = require('nconf');
+require('dotenv').config({path: 'projet/.env'});
 var changeCase = require('change-case');
 
 // create the express app
@@ -60,8 +60,8 @@ var start =  function(cb, db) {
     next(err);
   });
 
-  app.listen(config.get('NODE_PORT'));
-  logger.info('[SERVER] Listening on port ' + config.get('NODE_PORT'));
+  app.listen(process.env.NODE_PORT);
+  logger.info('[SERVER] Listening on port ' + process.env.NODE_PORT);
   
   if (cb) {
     return cb();

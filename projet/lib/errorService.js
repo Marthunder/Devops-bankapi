@@ -7,7 +7,7 @@ module.exports = {
     DEFAULT_CODE : 'UNKNOWN',
     DEFAULT_MESSAGE : 'Unknown error',
 
-   ERROR_VALUE : JSON.parse(fs.readFileSync('projet/error_value.json', 'utf8')),
+   ERROR_VALUE : JSON.parse(fs.readFileSync('error_value.json', 'utf8')),
 
     getDefault : function(customMessage) {
         var code = this.ERROR_CODE_PREFIX + this.ERROR_CODE_SEPARATOR + this.DEFAULT_CODE;

@@ -1,15 +1,14 @@
 var fs        = require("fs");
 var path      = require("path");
 var Sequelize = require('sequelize');
-var nconf = require('nconf');
+require('dotenv').config({path: 'projet/.env'});
 var db        = {};
 
 module.exports = function(cb) {
 	'use strict';
 	var modelsPath = __dirname + "/../../app/models/";
-	
-	nconf.env();
-	var sequelize = new Sequelize('mysql://'+nconf.get('DB_USER')+':'+nconf.get('DB_PASS')+'@'+nconf.get('DB_HOST')+'/'+nconf.get('DB_DATABASE'), {timezone:'Europe/Paris'});
+
+	var sequelize = new Sequelize('mysql://'+process.env.DB_USER+':'+process.env.DB_PASS+'@'+process.env.DB_HOST+'/'+process.env.DB_DATABASE, {timezone:'Europe/Paris'});
   	fs
 	    .readdirSync(modelsPath)
 	    .filter(function(file) {
@@ -31,7 +30,7 @@ module.exports = function(cb) {
 	
 	//SYNC ALL MODELS
 	//AND FIX RELATIONS BUGS
-	if(nconf.get('DB_FORCE_SYNC') === 'true'){
+	if(process.env.DB_FORCE_SYNC === 'true'){
 		sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
 		.then(function(){
 		    return sequelize.sync({ force: true });

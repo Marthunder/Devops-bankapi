@@ -1,7 +1,5 @@
-var nconf = require('nconf');
 var errorService = require('../../lib/errorService.js');
 var services = require('../../lib/services.js');
-nconf.env();
 module.exports = function(sequelize, DataTypes) {
 	var User = sequelize.define('user', {
 		email: { 
