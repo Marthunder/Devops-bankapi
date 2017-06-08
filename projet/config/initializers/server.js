@@ -25,6 +25,10 @@ var start =  function(cb, db) {
   app.use(bodyParser.json({limit: '2mb'}));
   app.use(express.static(__dirname + '/../../public'));
   app.use(fileUpload());
+  app.use(function(req, res, next){
+    res.db = db;
+    next();
+  });
 
   //Initialize routes
   logger.info('[SERVER] Initializing routes');
@@ -34,19 +38,25 @@ var start =  function(cb, db) {
     .filter(function(file) {
         return (file.indexOf(".") !== 0);
     })
-    .forEach(function(file) {
-	    var routeName = file.substring(0, file.indexOf('.'));
-	    var router = express.Router();
+    .forEach(function(routeFolder) {
+        fs
+          .readdirSync(routesPath + '/' + routeFolder)
+          .filter(function(file) {
+              return (file.indexOf('.') != 0 && file == 'router.js');
+          })
+          .forEach(function(file) {
+              var router = express.Router();
 
-	    // You can add some middleware here 
-	    // router.use(someMiddleware);
-	    
-	    // Initialize the route to add its functionality to router
-	    require(routesPath + routeName)(router, db, apiResponse, errorService);
-	    
-	    // Add router to the speficied route name in the app
-	    app.use('/' + changeCase.paramCase(routeName), router);
-    });  
+              // You can add some middleware here
+              // router.use(someMiddleware);
+
+              // Initialize the route to add its functionality to router
+              require(routesPath + routeFolder + '/' + file)(router);
+
+              // Add router to the speficied route name in the app
+              app.use('/' + changeCase.paramCase(routeFolder), router);
+          })
+    });
   
   app.use(express.static(path.join(__dirname, 'public')));
 
